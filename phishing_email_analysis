@@ -1,0 +1,120 @@
+# 📧 Phishing Analysis Report — Fake Google Notification “View Collection” Email
+
+---
+
+## 🧾 1. Basic Information
+
+| Field | Details |
+|-------|----------|
+| *Date of Analysis* | 22 October 2025 |
+| *Incident Type* | Phishing / Social Engineering |
+| *Email Subject* | “dubill hd7t invited you to view a collection: 🌅 we hope our chosen opt” |
+| *Sender Name* | Google Notifications |
+| *Sender Address* | notify-noreply@google.com |
+| *Return Path* | chime-notifications.bounces.google.com |
+| *Received Date (UTC)* | Fri, 8 Sep 2023 — 04:49:54 |
+| *Message ID* | <of6nAWgPaqXHrON-JdRXng@notifications.google.com> |
+| *Analyzed By* | LEODAS Leo |
+
+---
+
+## 🧩 2. Email Authentication Summary
+
+| Check | Result | Notes |
+|--------|---------|-------|
+| *SPF* | ✅ Pass | Sender IP (209.85.166.200) authorized for google.com |
+| *DKIM* | ✅ Pass | Signed and verified by google.com |
+| *DMARC* | ✅ Pass | Domain alignment confirmed |
+| *Authentication-Results* | pass | All technical checks valid |
+| *Return-Path* | ⚠ Suspicious | Points to chime-notifications.bounces.google.com — unrelated to the message content |
+
+### 🔍 Summary
+All authentication mechanisms pass, which indicates that this email was *sent via a legitimate Google mail server*.  
+However, the *content context is deceptive, meaning this is an **abuse of a legitimate Google service (Google Forms)* — not an external domain spoof.
+
+---
+
+## 🧠 3. Email Content Analysis
+  HTML Body Summary
+- Mimics Google’s *“Share notification”* design.  
+- Includes blue CTA button: *“View collection.”*  
+- Displays Google avatars, unsubscribe links, and App Store badges.  
+- All design elements match genuine Google branding — increasing perceived legitimacy.
+
+---
+
+## 🔗 4. Extracted URLs
+
+| Category | URL | Description |
+|-----------|-----|-------------|
+| *Phishing Form* | https://docs.google.com/forms/d/e/1FAIpQLSfGJfSDGslMI1OQ1x_pcUzzvvmvoqm5MpCDIwtL9d7wZYMoZQ/viewform | Fake form used to harvest information. |
+| *Tracking Pixel* | https://notifications.googleapis.com/email/t/AFG8qyXQrEX2z3LarHA0k_5zj4UkgOewmia3jgFLTkNdjaKiSs60eHl4eSA82e3To.../a.gif | Hidden 1x1 image to confirm email opened. |
+| *Redirect Links* | https://notifications.googleapis.com/email/redirect?... | Used to mask or track clicks. |
+
+---
+
+## ⚠ 5. Indicators of Compromise (IOCs)
+
+| Type | Indicator | Description |
+|------|------------|-------------|
+| *Header Anomaly* | Return-Path mismatch | Domain not related to sender or content |
+| *Behavioral* | Urgent action request (“View collection”) | Social engineering tactic |
+| *Visual Deception* | Uses real Google icons & CSS styling | Mimics legitimate notifications |
+| *Link Abuse* | Redirects via trusted domain (Google Forms) | Evades detection & user suspicion |
+
+---
+
+## 🎯 6. Attack Analysis
+
+| Element | Details |
+|----------|----------|
+| *Attack Vector* | Phishing via email |
+| *Delivery Channel* | Outlook / Office 365 (Exchange Online Protection) |
+| *Exploit Type* | Social engineering → credential harvesting |
+| *Objective* | Steal credentials or data via malicious Google Form |
+| *Complexity* | Low to Moderate — relies on user trust and branding rather than exploits |
+
+### Attack Flow
+1. User receives an “invitation” from a spoofed Google notification.  
+2. The email prompts a click to view a shared collection.  
+3. The link redirects to a Google Form designed to look like a legitimate access page.  
+4. The form captures personal or credential data from the victim.  
+
+---
+
+## 🛡 7. Recommended Mitigations
+
+| Area | Recommendation |
+|-------|----------------|
+| *User Awareness* | Educate users on verifying sender intent and checking URLs carefully. |
+| *Security Filters* | Implement sandboxing or URL rewriting for email links. |
+| *Incident Response* | Report malicious Google Forms to [Google Support](https://support.google.com/docs/answer/6281888). |
+| *Technical Controls* | Flag emails with “view collection” or similar phrases for review. |
+| *Policy Measures* | Block automatic form access from untrusted sources within the network. |
+
+---
+
+## 🧩 8. Analytical Conclusion
+
+This email *passes all authentication checks (SPF, DKIM, DMARC)* but is still malicious.  
+It is a *phishing campaign leveraging legitimate Google infrastructure* to distribute malicious forms.  
+Because the message originates from valid Google servers, it bypasses traditional spam filters and relies solely on *social engineering deception*.
+
+---
+
+## 📚 9. Key Learning Points
+
+- Technical legitimacy ≠ contextual legitimacy.  
+- Google-hosted phishing is increasingly common because of user trust in google.com domains.  
+- Always verify the *intent* and *context* of messages before interacting with embedded forms or links.  
+
+---
+
+*Prepared By:*  
+LEODAS Leo  
+Cybersecurity Student — Phishing Analysis Task  
+(For educational and research use only)
+
+---
+
+### 3.1 Plaintext Body
